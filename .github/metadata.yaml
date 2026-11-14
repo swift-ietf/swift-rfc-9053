@@ -1,0 +1,11 @@
+# .github/metadata.yaml
+description: "Swift implementation of RFC 9053: CBOR Object Signing and Encryption (COSE): Initial Algorithms."
+topics:
+  - standards
+  - rfc
+  - rfc-9053
+  - cose
+  - cryptography
+homepage: "https://swift-institute.org"
+readme:
+  family: E
