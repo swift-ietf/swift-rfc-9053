@@ -1,4 +1,4 @@
-extension RFC_9053.EC2 {
+extension IETF.RFC.`9053`.EC2 {
 
     /// The public key of an EC2 COSE key: a curve and a point on it.
     ///
@@ -7,7 +7,7 @@ extension RFC_9053.EC2 {
     public struct PublicKey: Sendable, Hashable {
 
         /// `crv`.
-        public let curve: RFC_9053.Curve
+        public let curve: IETF.RFC.`9053`.Curve
 
         /// `x`, with its leading zero bytes.
         public let x: [UInt8]
@@ -23,7 +23,7 @@ extension RFC_9053.EC2 {
             case sign(Bool)
         }
 
-        public init(curve: RFC_9053.Curve, x: [UInt8], y: Y) {
+        public init(curve: IETF.RFC.`9053`.Curve, x: [UInt8], y: Y) {
             self.curve = curve
             self.x = x
             self.y = y
@@ -33,9 +33,9 @@ extension RFC_9053.EC2 {
         ///
         /// Refused when `kty` is not EC2, `crv` is missing or not an integer, `x` or `y` is missing or of the wrong
         /// type, a coordinate of P-256, P-384 or P-521 does not have that curve's length, or the key carries `d`.
-        public init(_ key: RFC_9052.Key) throws(RFC_9053.Error) {
-            guard key.keyType.integer == RFC_9053.KeyType.ec2.rawValue else { throw .keyType(key.keyType) }
-            guard let curve = key[Label.curve]?.integer.map(RFC_9053.Curve.init(rawValue:)) else { throw .curve }
+        public init(_ key: IETF.RFC.`9052`.Key) throws(IETF.RFC.`9053`.Error) {
+            guard key.keyType.integer == IETF.RFC.`9053`.KeyType.ec2.rawValue else { throw .keyType(key.keyType) }
+            guard let curve = key[Label.curve]?.integer.map(IETF.RFC.`9053`.Curve.init(rawValue:)) else { throw .curve }
             guard key[Label.d] == nil else { throw .privateKey }
             guard let x = key[Label.x]?.bytes, x.count == curve.coordinateLength ?? x.count else {
                 throw .coordinate(Label.x)
@@ -54,24 +54,24 @@ extension RFC_9053.EC2 {
     }
 }
 
-extension RFC_9053.EC2.PublicKey {
+extension IETF.RFC.`9053`.EC2.PublicKey {
 
     /// The public key as a COSE key, with `alg` when one is given.
-    public func key(algorithm: RFC_9053.Algorithm? = nil) -> RFC_9052.Key {
-        var pairs: [RFC_8949.Pair] = [
-            .init(key: RFC_9052.Key.Label.keyType, value: RFC_8949.Value(RFC_9053.KeyType.ec2.rawValue))
+    public func key(algorithm: IETF.RFC.`9053`.Algorithm? = nil) -> IETF.RFC.`9052`.Key {
+        var pairs: [IETF.RFC.`8949`.Pair] = [
+            .init(key: IETF.RFC.`9052`.Key.Label.keyType, value: IETF.RFC.`8949`.Value(IETF.RFC.`9053`.KeyType.ec2.rawValue))
         ]
         if let algorithm {
-            pairs.append(.init(key: RFC_9052.Key.Label.algorithm, value: algorithm.value))
+            pairs.append(.init(key: IETF.RFC.`9052`.Key.Label.algorithm, value: algorithm.value))
         }
-        pairs.append(.init(key: RFC_9053.EC2.Label.curve, value: RFC_8949.Value(curve.rawValue)))
-        pairs.append(.init(key: RFC_9053.EC2.Label.x, value: .bytes(x)))
+        pairs.append(.init(key: IETF.RFC.`9053`.EC2.Label.curve, value: IETF.RFC.`8949`.Value(curve.rawValue)))
+        pairs.append(.init(key: IETF.RFC.`9053`.EC2.Label.x, value: .bytes(x)))
         switch y {
-        case .coordinate(let coordinate): pairs.append(.init(key: RFC_9053.EC2.Label.y, value: .bytes(coordinate)))
-        case .sign(let sign): pairs.append(.init(key: RFC_9053.EC2.Label.y, value: .bool(sign)))
+        case .coordinate(let coordinate): pairs.append(.init(key: IETF.RFC.`9053`.EC2.Label.y, value: .bytes(coordinate)))
+        case .sign(let sign): pairs.append(.init(key: IETF.RFC.`9053`.EC2.Label.y, value: .bool(sign)))
         }
         do {
-            return try RFC_9052.Key(.map(pairs))
+            return try IETF.RFC.`9052`.Key(.map(pairs))
         } catch {
             preconditionFailure("an EC2 public key always makes a valid COSE key: \(error)")
         }

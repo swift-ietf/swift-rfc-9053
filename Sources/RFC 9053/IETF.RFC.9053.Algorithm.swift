@@ -1,4 +1,4 @@
-extension RFC_9053 {
+extension IETF.RFC.`9053` {
 
     /// A COSE algorithm identifier, the value of an `alg` parameter, from the "COSE Algorithms" registry.
     public struct Algorithm: RawRepresentable, Sendable, Hashable {
@@ -11,7 +11,7 @@ extension RFC_9053 {
     }
 }
 
-extension RFC_9053.Algorithm {
+extension IETF.RFC.`9053`.Algorithm {
 
     /// ECDSA with SHA-256 (section 2.1).
     public static let es256 = Self(rawValue: -7)
@@ -53,11 +53,11 @@ extension RFC_9053.Algorithm {
     public static let direct = Self(rawValue: -6)
 
     /// The algorithm a CBOR integer names, or `nil` for anything else (a text name is a private-use algorithm).
-    public init?(_ value: RFC_8949.Value) {
+    public init?(_ value: IETF.RFC.`8949`.Value) {
         guard let integer = value.integer else { return nil }
         self.init(rawValue: integer)
     }
 
     /// The algorithm as a CBOR integer.
-    public var value: RFC_8949.Value { RFC_8949.Value(rawValue) }
+    public var value: IETF.RFC.`8949`.Value { IETF.RFC.`8949`.Value(rawValue) }
 }

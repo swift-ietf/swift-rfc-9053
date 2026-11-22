@@ -4,7 +4,7 @@ import RFC_9053
 enum Appendix {
 
     /// Appendix C.7.1.
-    static let publicKeys: RFC_8949.Value = .array([
+    static let publicKeys: IETF.RFC.`8949`.Value = .array([
         .map([
             .init(key: .negative(0), value: .unsigned(1)),
             .init(key: .negative(1), value: .bytes(hex("65eda5a12577c2bae829437fe338701a10aaa375e1bb5b5de108de439c08551d"))),
@@ -36,7 +36,7 @@ enum Appendix {
     ])
 
     /// Appendix C.7.2.
-    static let privateKeys: RFC_8949.Value = .array([
+    static let privateKeys: IETF.RFC.`8949`.Value = .array([
         .map([
             .init(key: .unsigned(1), value: .unsigned(2)),
             .init(key: .unsigned(2), value: .bytes(hex("6d65726961646f632e6272616e64796275636b406275636b6c616e642e6578616d706c65"))),

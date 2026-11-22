@@ -1,4 +1,4 @@
-extension RFC_9053 {
+extension IETF.RFC.`9053` {
 
     /// A COSE key type, the value of a `kty` parameter (section 7, Table 17).
     public struct KeyType: RawRepresentable, Sendable, Hashable {
@@ -11,7 +11,7 @@ extension RFC_9053 {
     }
 }
 
-extension RFC_9053.KeyType {
+extension IETF.RFC.`9053`.KeyType {
 
     /// Octet key pair (section 7.2).
     public static let okp = Self(rawValue: 1)

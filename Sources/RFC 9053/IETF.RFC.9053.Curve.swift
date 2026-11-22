@@ -1,4 +1,4 @@
-extension RFC_9053 {
+extension IETF.RFC.`9053` {
 
     /// A COSE elliptic curve, the value of a `crv` parameter (section 7.1, Table 18).
     public struct Curve: RawRepresentable, Sendable, Hashable {
@@ -11,7 +11,7 @@ extension RFC_9053 {
     }
 }
 
-extension RFC_9053.Curve {
+extension IETF.RFC.`9053`.Curve {
 
     /// NIST P-256, also known as secp256r1, for EC2 keys.
     public static let p256 = Self(rawValue: 1)
